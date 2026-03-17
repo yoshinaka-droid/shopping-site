@@ -26,7 +26,7 @@ public class JsonDB {
 
  private synchronized void write(String name,Map<String,String> data) throws Exception{
 
-  File file=new File("data/"+name+".json");
+  File file=new File("/data/"+name+".json");
 
   mapper.writerWithDefaultPrettyPrinter()
    .writeValue(file,data);
