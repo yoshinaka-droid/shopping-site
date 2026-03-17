@@ -14,7 +14,7 @@ public class JsonDB {
 
  private synchronized Map<String,String> read(String name) throws Exception {
 
-  File file=new File("data/"+name+".json");
+  File file=new File("/data/"+name+".json");
 
   if(!file.exists()){
    return new HashMap<>();
