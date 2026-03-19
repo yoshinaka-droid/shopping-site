@@ -4,6 +4,7 @@ import com.example.shop.service.JsonDB;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("/api")
