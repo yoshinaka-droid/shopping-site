@@ -1,10 +1,27 @@
 <!DOCTYPE html>
 <html>
 
-<h1>Shop</h1>
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping Site</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .lang-switcher { margin: 20px; }
+    </style>
+</head>
+
+<body>
+
+<div class="lang-switcher">
+    <button onclick="switchLanguage('en')">English</button>
+    <button onclick="switchLanguage('ja')">日本語</button>
+</div>
+<h1 id="title">Welcome to the Shopping Site</h1>
+<p id="message">Browse our products and enjoy shopping!</p>
 
 <div id="products"></div>
-
+    
+<h1>Shop</h1>
 <h2>Cart</h2>
 <div id="cart"></div>
 
@@ -17,6 +34,21 @@
 
 const API="/api"
 let cart=[]
+
+function switchLanguage(lang) {
+        const englishContent = {
+            title: 'Welcome to the Shopping Site',
+            message: 'Browse our products and enjoy shopping!'
+        };
+        const japaneseContent = {
+            title: 'ショッピングサイトへようこそ',
+            message: '商品をブラウズして、お買い物を楽しんでください！'
+        };
+
+        const content = lang === 'ja' ? japaneseContent : englishContent;
+        document.getElementById('title').innerText = content.title;
+        document.getElementById('message').innerText = content.message;
+    }
 
 async function load(){
 
@@ -87,5 +119,7 @@ load()
 loadOrders()
 
 </script>
+
+</body>
 
 </html>

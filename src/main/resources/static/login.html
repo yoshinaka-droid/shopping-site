@@ -1,0 +1,35 @@
+<html>
+
+<h1>Login</h1>
+
+<input id="user" placeholder="user">
+<input id="pass" placeholder="pass" type="password">
+
+<button onclick="login()">Login</button>
+
+<script>
+
+async function login(){
+
+ const res=await fetch("/api/login",{
+  method:"POST",
+  headers:{"Content-Type":"application/json"},
+  body:JSON.stringify({
+   user:document.getElementById("user").value,
+   pass:document.getElementById("pass").value
+  })
+ })
+
+ const text=await res.text()
+
+ if(text==="ok"){
+  location.href="/admin.html"
+ }else{
+  alert("login failed")
+ }
+
+}
+
+</script>
+
+</html>

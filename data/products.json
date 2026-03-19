@@ -1,5 +1,14 @@
 {
- "p1":"Apple",
- "p2":"Orange",
- "p3":"Banana"
+  "p1": {
+    "name": "Apple",
+    "price": 100
+  },
+  "p2": {
+    "name": "Orange",
+    "price": 120
+  },
+  "p3": {
+    "name": "Banana",
+    "price": 140
+  }
 }

@@ -1,0 +1,83 @@
+<html>
+
+<h1>Admin</h1>
+
+<h2>商品一覧</h2>
+<div id="list"></div>
+
+<h2>商品追加</h2>
+
+<input id="name" placeholder="name">
+<input id="price" placeholder="price">
+
+<button onclick="add()">追加</button>
+
+<script>
+
+const API="/api"
+
+fetch("/api/products")
+ .then(()=>{})
+ .catch(()=>{
+  location.href="/login.html"
+})
+
+async function load(){
+
+ const res=await fetch(API+"/products")
+ const data=await res.json()
+
+ const div=document.getElementById("list")
+ div.innerHTML=""
+
+ for(const id in data){
+
+  const p=data[id]
+
+  const d=document.createElement("div")
+
+  d.innerText=`${p.name} (${p.price})`
+
+  const del=document.createElement("button")
+
+  del.innerText="削除"
+  del.onclick=()=>remove(id)
+
+  d.appendChild(del)
+
+  div.appendChild(d)
+ }
+
+}
+
+async function add(){
+
+ const name=document.getElementById("name").value
+ const price=document.getElementById("price").value
+
+ await fetch(API+"/admin/product",{
+  method:"POST",
+  headers:{"Content-Type":"application/json"},
+  body:JSON.stringify({
+   name:name,
+   price:Number(price)
+  })
+ })
+
+ load()
+}
+
+async function remove(id){
+
+ await fetch(API+"/admin/product/"+id,{
+  method:"DELETE"
+ })
+
+ load()
+}
+
+load()
+
+</script>
+
+</html>

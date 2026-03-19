@@ -73,4 +73,9 @@ public class JsonDB {
 
   }
 
+  public synchronized void write(String name, Map<String,Object> data) throws Exception{
+   mapper.writerWithDefaultPrettyPrinter()
+   .writeValue(getFile(name),data);
+  }
+
 }
