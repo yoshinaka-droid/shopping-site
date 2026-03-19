@@ -58,4 +58,19 @@ public class JsonDB {
 
  }
 
+ public synchronized Map<String,Object> getAllObject(String name) throws Exception{
+  return mapper.readValue(getFile(name), Map.class);
+  }
+
+  public synchronized void putObject(String name,String key,Object value) throws Exception{
+
+  Map<String,Object> data=getAllObject(name);
+
+  data.put(key,value);
+
+  mapper.writerWithDefaultPrettyPrinter()
+    .writeValue(getFile(name),data);
+
+  }
+
 }

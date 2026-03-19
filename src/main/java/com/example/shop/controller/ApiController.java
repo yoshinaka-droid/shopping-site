@@ -21,14 +21,24 @@ public class ApiController {
   return db.getAll("products");
  }
 
- @PostMapping("/order")
- public String order(@RequestBody Map<String,String> body) throws Exception{
-
-  String id="order"+System.currentTimeMillis();
-
-  db.put("orders",id,body.get("items"));
-
-  return "ok";
+ @GetMapping("/orders")
+ public Map<String,Object> orders() throws Exception{
+  return db.getAllObject("orders");
  }
+
+    @PostMapping("/order")
+    public String order(@RequestBody Map<String,Object> body) throws Exception{
+
+    String id="order"+System.currentTimeMillis();
+
+    Map<String,Object> orderData=new HashMap<>();
+
+    orderData.put("items", body.get("items"));
+    orderData.put("time", java.time.LocalDateTime.now().toString());
+
+    db.putObject("orders",id,orderData);
+
+    return "ok";
+    }
 
 }

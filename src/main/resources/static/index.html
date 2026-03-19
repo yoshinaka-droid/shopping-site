@@ -10,6 +10,9 @@
 
 <button onclick="order()">ORDER</button>
 
+<h2>Order History</h2>
+<div id="orders"></div>
+
 <script>
 
 const API="/api"
@@ -53,9 +56,35 @@ async function order(){
  cart=[]
  render()
 
+ loadOrders()
+
+}
+
+async function loadOrders(){
+
+ const res=await fetch(API+"/orders")
+ const orders=await res.json()
+
+ const div=document.getElementById("orders")
+
+ div.innerHTML=""
+
+ for(const id in orders){
+
+  const o=orders[id]
+
+  const p=document.createElement("p")
+
+  p.innerText=id+" : "+o.items+" ("+o.time+")"
+
+  div.appendChild(p)
+
+ }
+
 }
 
 load()
+loadOrders()
 
 </script>
 
