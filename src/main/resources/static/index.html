@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<h1>Shop</h1>
+
+<div id="products"></div>
+
+<h2>Cart</h2>
+<div id="cart"></div>
+
+<button onclick="order()">ORDER</button>
+
+<script>
+
+const API="/api"
+let cart=[]
+
+async function load(){
+
+ const res=await fetch(API+"/products")
+ const products=await res.json()
+
+ for(const id in products){
+
+  const btn=document.createElement("button")
+
+  btn.innerText="add "+products[id]
+
+  btn.onclick=()=>{
+   cart.push(products[id])
+   render()
+  }
+
+  document.getElementById("products").appendChild(btn)
+ }
+
+}
+
+function render(){
+ document.getElementById("cart").innerText=cart.join(",")
+}
+
+async function order(){
+
+ await fetch(API+"/order",{
+  method:"POST",
+  headers:{"Content-Type":"application/json"},
+  body:JSON.stringify({items:cart.join(",")})
+ })
+
+ alert("ordered")
+
+ cart=[]
+ render()
+
+}
+
+load()
+
+</script>
+
+</html>
