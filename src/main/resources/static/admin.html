@@ -30,10 +30,14 @@
 const API="/api"
 
 // 未ログインチェック
-fetch("/api/products")
- .catch(()=>{
+async function check(){
+ const res = await fetch("/api/products")
+
+ if(res.status === 401){
   location.href="/login.html"
-})
+ }
+}
+check()
 
 async function load(){
 
