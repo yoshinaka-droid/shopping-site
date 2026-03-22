@@ -1,25 +1,27 @@
-<html>
+<!DOCTYPE html>
+<html lang="ja">
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Shopping Site</title>
+
     <style>
         body { font-family: Arial, sans-serif; }
-        .lang-switcher { margin: 20px; }
     </style>
 </head>
 
 <body>
 
-<h1>Admin</h1>
+<h1>管理画面</h1>
 
 <h2>商品一覧</h2>
 <div id="list"></div>
 
 <h2>商品追加</h2>
 
-<input id="name" placeholder="name">
-<input id="price" placeholder="price">
+<input id="name" placeholder="商品名">
+<input id="price" placeholder="価格">
 
 <button onclick="add()">追加</button>
 
@@ -27,8 +29,8 @@
 
 const API="/api"
 
+// 未ログインチェック
 fetch("/api/products")
- .then(()=>{})
  .catch(()=>{
   location.href="/login.html"
 })
@@ -47,7 +49,7 @@ async function load(){
 
   const d=document.createElement("div")
 
-  d.innerText=`${p.name} (${p.price})`
+  d.innerText=`${p.name} (${p.price}円)`
 
   const del=document.createElement("button")
 
@@ -68,7 +70,9 @@ async function add(){
 
  await fetch(API+"/admin/product",{
   method:"POST",
-  headers:{"Content-Type":"application/json"},
+  headers:{
+    "Content-Type":"application/json; charset=UTF-8"
+  },
   body:JSON.stringify({
    name:name,
    price:Number(price)

@@ -17,8 +17,8 @@ public class JsonDB {
   return new File("/data/"+name+".json");
  }
 
- @PostConstruct
- public void init() throws Exception{
+@PostConstruct
+public void init() throws Exception{
 
   initFile("products", Map.of(
    "p1","Apple",
@@ -28,7 +28,14 @@ public class JsonDB {
 
   initFile("orders", new HashMap<>());
 
- }
+  initFileObject("users", Map.of(
+  "admin", Map.of(
+    "password","admin123",
+    "role","ADMIN"
+  )
+ ));
+
+}
 
  private void initFile(String name, Map<String,String> initData) throws Exception{
 
@@ -42,6 +49,19 @@ public class JsonDB {
   }
 
  }
+
+ private void initFileObject(String name, Map<String,Object> initData) throws Exception{
+
+ File file = getFile(name);
+
+ file.getParentFile().mkdirs();
+
+ if(!file.exists() || file.length()==0){
+  mapper.writerWithDefaultPrettyPrinter()
+   .writeValue(file, initData);
+ }
+
+}
 
  public synchronized Map<String,String> getAll(String name) throws Exception{
   return mapper.readValue(getFile(name),Map.class);

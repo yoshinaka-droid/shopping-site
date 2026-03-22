@@ -1,42 +1,46 @@
-<html>
+<!DOCTYPE html>
+<html lang="ja">
 
 <head>
     <meta charset="UTF-8">
-    <title>Shopping Site</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>ログイン</title>
+
     <style>
         body { font-family: Arial, sans-serif; }
-        .lang-switcher { margin: 20px; }
     </style>
 </head>
 
 <body>
 
-<h1>Login</h1>
+<h1>ログイン</h1>
 
-<input id="user" placeholder="user">
-<input id="pass" placeholder="pass" type="password">
+<input id="user" placeholder="ユーザー名">
+<input id="pass" placeholder="パスワード" type="password">
 
-<button onclick="login()">Login</button>
+<button onclick="login()">ログイン</button>
+
+<p><a href="/index.html">← 商品ページへ戻る</a></p>
 
 <script>
 
 async function login(){
 
- const res=await fetch("/api/login",{
+ const res = await fetch("/api/login",{
   method:"POST",
-  headers:{"Content-Type":"application/json"},
+  headers:{
+    "Content-Type":"application/json; charset=UTF-8"
+  },
   body:JSON.stringify({
    user:document.getElementById("user").value,
    pass:document.getElementById("pass").value
   })
  })
 
- const text=await res.text()
-
- if(text==="ok"){
+ if(res.ok){
   location.href="/admin.html"
  }else{
-  alert("login failed")
+  alert("ログイン失敗")
  }
 
 }
