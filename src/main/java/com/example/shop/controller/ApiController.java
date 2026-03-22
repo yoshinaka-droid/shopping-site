@@ -116,8 +116,8 @@ public class ApiController {
         session.invalidate();
     }
 
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<?> handle(){
-        return ResponseEntity.status(401).body("unauthorized");
-    }
+    // @ExceptionHandler(RuntimeException.class)
+    // public ResponseEntity<?> handle(){
+    //     return ResponseEntity.status(401).body("unauthorized");
+    // }
 }
